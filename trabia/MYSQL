@@ -1,0 +1,89 @@
+create database sistema_cursos;
+use  sistema_cursos;
+CREATE TABLE cursos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    horario VARCHAR(50),
+    imagem_url VARCHAR(255), -- Link para a imagem do curso
+    categoria VARCHAR(50)   -- Ex: Programação, Design, Business
+);
+
+-- Tabela de Alunos
+CREATE TABLE alunos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(255), -- Sempre armazene como hash!
+    telefone VARCHAR(20)
+);
+
+-- Tabela de Interesses (Lead/Contato)
+-- Geralmente usada para quem ainda não é aluno, mas quer info
+CREATE TABLE interesses (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    mensagem TEXT,
+    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS cursos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    horario VARCHAR(50),
+    imagem_url VARCHAR(255),
+    categoria VARCHAR(50)
+);
+
+INSERT INTO cursos (nome, horario, imagem_url, categoria) VALUES 
+('Curso de PHP Moderno', '19:00 - 21:00', 'php.jpg', 'Programação'),
+('Design UI/UX', '14:00 - 16:00', 'design.jpg', 'Design'),
+('Banco de Dados MySQL', '08:00 - 10:00', 'mysql.jpg', 'Infraestrutura');
+
+-- Exemplo: Adicionando a imagem ao curso de ID 1
+UPDATE cursos SET imagem_url = 'php.jpg' WHERE id = 1;
+
+-- Exemplo: Adicionando a imagem ao curso de ID 2
+UPDATE cursos SET imagem_url = 'design.png' WHERE id = 2;
+-- Adiciona coluna de preço
+ALTER TABLE cursos 
+ADD COLUMN valor DECIMAL(10,2) NOT NULL DEFAULT 0.00 AFTER categoria;
+
+-- Atualiza os cursos existentes com preços (você pode mudar os valores)
+UPDATE cursos SET valor = 497.00 WHERE nome = 'Curso de PHP Moderno';
+UPDATE cursos SET valor = 697.00 WHERE nome = 'Design UI/UX';
+UPDATE cursos SET valor = 347.00 WHERE nome = 'Banco de Dados MySQL';
+select *from interesses;
+
+-- Se quiser adicionar mais cursos depois:
+INSERT INTO cursos (nome, horario, imagem_url, categoria, valor) VALUES
+('Curso de React Avançado', '18:00 - 20:00', 'react.jpg', 'Programação', 897.00),
+('Marketing Digital', '09:00 - 11:00', 'marketing.jpg', 'Business', 447.00);
+UPDATE cursos SET imagem_url = 'php.jpg'     WHERE nome LIKE '%PHP%';
+UPDATE cursos SET imagem_url = 'design.png'  WHERE nome LIKE '%UI/UX%';
+UPDATE cursos SET imagem_url = 'mysql.jpg'   WHERE nome LIKE '%MySQL%';
+SELECT id, nome, imagem_url 
+FROM cursos 
+WHERE nome LIKE '%TI%' 
+   OR nome LIKE '%Tecnologia%' 
+   OR nome LIKE '%Informática%';
+   UPDATE cursos 
+SET imagem_url = 'ti.jpg' 
+WHERE id = 5;
+
+select id nome, imagem_url
+from cursos;
+select *from cursos;
+update cursos
+set imagem_url = 'nmy.jpg' 
+where id = 3;
+
+
+select *from interesses;
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,          -- armazenaremos hash
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+select *from usuarios;
